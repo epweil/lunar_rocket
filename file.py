@@ -8,6 +8,7 @@ class lunar_module():
 
         def __init__(self, mass = 1):
                 self.obj = turtle.Turtle()
+                self.obj.penup()
                 self.obj.shape('square')
                 self.obj.color('black')
                 self.mass = mass
@@ -17,6 +18,20 @@ class lunar_module():
                 self.force_vert = 0
                 self.blaster =False
 
+
+                ##TEXT DISPLAYES
+                self.textPos = turtle.Turtle(visible=False)
+                self.textPos.penup()
+                self.textPos.goto(250,310)
+                
+                self.textPos.color("black")
+                
+
+                self.textVelo = turtle.Turtle(visible=False)
+                self.textVelo.penup()
+                self.textVelo.goto(250,300)
+                self.textVelo.color("black")
+                
         def move(self,t=0.05):
 
                 angle_delta = -self.obj.heading()
@@ -40,8 +55,13 @@ class lunar_module():
 
                 self.obj.sety(self.obj.ycor() + delta_vert)
                 self.obj.setx(self.obj.xcor() + delta_hori)
+                self.textPos.undo()
+                self.textPos.write("Position: (" + str(round(self.obj.xcor(),2)) + ","+ str(round(self.obj.ycor(),2)) + ")",  font=('Arial', 10, 'normal'))
+                self.textVelo.undo()
+                self.textVelo.write("Velocty: (" + str(round(self.velocity_hori,2)) + ","+ str(round(self.velocity_vert,2)) + ")",  font=('Arial', 10, 'normal'))
                 
-        
+                # self.text.goto(0,100)
+                # self.text.write("Position Y " + str(self.obj.xcor()), move=False, align='center', font=('Arial', 20, 'normal'))
 
         def blaster_on(self):
                 self.blaster = True
@@ -69,6 +89,7 @@ rocket = lunar_module()
 
 
 
+
 window.onkeypress(rocket.blaster_on, "Up")
 window.onkeypress(rocket.turn_right, "Right")
 window.onkeypress(rocket.turn_left, "Left")
@@ -76,6 +97,7 @@ window.onkeyrelease(rocket.blaster_off, "Up")
 window.onkeypress(rocket.reset, "space")
 
 window.listen()
+print(window.screensize())
 while True:
         rocket.move()
         window.update()
