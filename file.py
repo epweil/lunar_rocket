@@ -2,6 +2,7 @@
 import turtle
 import time
 import math
+import random 
 class lunar_module():
         
         
@@ -83,10 +84,28 @@ class lunar_module():
                  self.velocity_hori =0
                  self.velocity_vert =0
 
+
+class landing_pad():
+        def __init__(self):
+                rand_hori_left = random.random() * 250 -30
+                rand_vert = random.random() * 250 +30
+                
+                self.obj = turtle.Turtle(visible=False)
+                self.obj.color("RED")
+                self.obj.penup()
+                self.obj.goto(rand_hori_left,rand_vert)
+                self.obj.pensize(4)
+                self.obj.pendown()
+                self.obj.goto(rand_hori_left,rand_vert-10)
+                self.obj.goto(rand_hori_left+100,rand_vert-10)
+                self.obj.goto(rand_hori_left+100,rand_vert)
+                self.obj.penup()
+
+
 window = turtle.Screen()
 window.bgcolor('white')
 rocket = lunar_module()
-
+landing = landing_pad()
 
 
 
@@ -97,7 +116,7 @@ window.onkeyrelease(rocket.blaster_off, "Up")
 window.onkeypress(rocket.reset, "space")
 
 window.listen()
-print(window.screensize())
+
 while True:
         rocket.move()
         window.update()
